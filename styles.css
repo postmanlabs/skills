@@ -195,9 +195,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
+  padding: 0.625rem;
   margin: 0;
   background: var(--bg-code);
   border: 1px solid var(--border-light);
@@ -213,6 +211,10 @@ a {
 .copy-btn svg {
   display: block;
   flex-shrink: 0;
+}
+
+.copy-btn .icon-check {
+  display: none;
 }
 
 .copy-btn:hover {
@@ -232,7 +234,7 @@ a {
 }
 
 .copy-btn.copied .icon-check {
-  display: block !important;
+  display: block;
 }
 
 /* Toast */
