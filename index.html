@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Postman for Agents</title>
+  <meta name="description" content="Work with Postman from your agents. Copy the setup prompt." />
+  <link rel="icon" href="https://www.postman.com/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="https://postman.ai" class="nav-pill" aria-label="Postman.ai" target="_blank" rel="noopener noreferrer">
+        <img class="nav-pill-icon" src="https://postman-image-service.postman.com/api/cloudinary-proxy/postman/image/upload/t_team_logo/v1629869194/team/2893aede23f01bfcbd2319326bc96a6ed0524eba759745ed6d73405a3a8b67a8" alt="Postman.ai" />
+        <span>Postman.ai</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="get-started">
+      <div class="hero-bg" aria-hidden="true"></div>
+
+      <div class="hero-inner">
+        <p class="eyebrow">
+          <svg class="sparkle" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 0l1.2 4.8L13 7l-4.8 1.2L7 13 5.8 8.2 1 7l4.8-1.2L7 0z" fill="currentColor"/>
+          </svg>
+          Postman for Agents
+        </p>
+
+        <h1>Work with Postman from your agents.</h1>
+        <p class="hero-description">
+          Copy the prompt below into your agent to setup postman cli. Postman helps your agent develop, test, manage, and distribute your APIs and services. 
+        </p>
+
+        <div class="prompt-card">
+          <div class="code-panel">
+            <div class="code-toolbar">
+              <button class="copy-btn" type="button" data-copy="prompt" aria-label="Copy prompt">
+                <svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" hidden>
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+              </button>
+            </div>
+            <pre class="code-block"><code id="prompt">Set up Postman in this repository.
+
+## 1. Install the Postman CLI
+
+Pick the install method that matches the environment:
+
+**npm (macOS, Linux, Windows):**
+npm install -g postman-cli
+
+**macOS / Linux / WSL:**
+curl -o- "https://dl-cli.pstmn.io/install/unix.sh" | sh
+
+**Windows (PowerShell):**
+powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
+
+Verify the install:
+postman --version
+
+Docs: https://learning.postman.com/docs/postman-cli/postman-cli-installation/
+
+## 2. Log in to Postman
+
+Run:
+
+postman login
+
+Complete the browser sign-in flow when prompted.
+
+## 3. Initialize Postman in this repo
+
+From the repository root, run:
+
+postman init
+
+This scaffolds Postman config in the project (for example `.postman/` and related metadata) so collections, environments, and workspace settings can live alongside the codebase.
+
+If the command is interactive, accept sensible defaults for this repo unless I specify otherwise. Commit any generated Postman files unless I say not to.
+
+## After setup
+
+- Tell me what files were created or changed.
+- Summarize the next steps to run collections or sync with a Postman workspace.</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>Copied to clipboard</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
