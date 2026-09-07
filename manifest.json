@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    {
+      "name": "api-builder",
+      "plugin": "postman",
+      "description": "Guide for building high-quality APIs by leveraging postman cli. Use when documenting an existing API, designing or changing apis, or writing API tests in this repo.",
+      "files": [
+        {
+          "target": "SKILL.md",
+          "source": "plugins/postman/skills/api-builder/SKILL.md",
+          "bytes": 3288,
+          "sha256": "c5aa2ef0e05238ed246b7c2413890406a14cf0fc70e503214938192d91bc655b"
+        },
+        {
+          "target": "reference/collection_schema_v3.md",
+          "source": "plugins/postman/skills/api-builder/reference/collection_schema_v3.md",
+          "bytes": 8925,
+          "sha256": "a14e1304c60a7a840e79e5029c37ab22c13823f569f3b79dcbb3143c8b443be7"
+        }
+      ]
+    }
+  ]
+}
