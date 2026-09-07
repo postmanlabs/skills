@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "postman",
+  "description": "Postman's official skills for coding agents. Design, test, and publish APIs from your editor using the Postman CLI.",
+  "owner": {
+    "name": "Postman",
+    "url": "https://github.com/postmanlabs"
+  },
+  "plugins": [
+    {
+      "name": "postman",
+      "source": "./plugins/postman",
+      "displayName": "Postman",
+      "description": "Work with Postman from your agent: design an OpenAPI contract, generate and run collections, and publish to a workspace.",
+      "homepage": "https://www.postmanlabs.com/skills/",
+      "repository": "https://github.com/postmanlabs/skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "postman",
+        "api",
+        "openapi",
+        "testing",
+        "collections"
+      ],
+      "category": "api-development"
+    }
+  ]
+}
