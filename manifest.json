@@ -9,8 +9,8 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/api-builder/SKILL.md",
-          "bytes": 3288,
-          "sha256": "c5aa2ef0e05238ed246b7c2413890406a14cf0fc70e503214938192d91bc655b"
+          "bytes": 3657,
+          "sha256": "47a66ac2113e4a3f882e0e06fbc7459ac92101d26b975c85ea41ec2952f7d1c8"
         },
         {
           "target": "reference/collection_schema_v3.md",

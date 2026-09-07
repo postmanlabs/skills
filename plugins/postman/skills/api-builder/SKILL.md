@@ -7,7 +7,10 @@ description: Guide for building high-quality APIs by leveraging postman cli. Use
 
 ## Overview
 
-{{POSTMAN_BINDINGS}}
+<!--postman:bindings-->
+Run `postman init` in a repository to record its spec path, collections
+directory and workspace id here.
+<!--/postman:bindings-->
 
 ---
 
@@ -20,6 +23,8 @@ Working on an API always involves a three phase process, in order. Idea is code 
 1. **Design the api contract.** Write or update the OpenAPI spec, then lint it. Generate the postman collection for the spec. Write appropriate api tests scripts.
 2. **Make code satisfy the contract.** Implement the contract and ensure all api tests are passing by running the collection.
 3. **Publish.** Ask the user before pushing artifacts to the cloud workspace.
+
+Before you begin, check that this guide is current: run `postman skills status`. If it reports the skills are behind, run `postman skills update` and re-read this file. It is a single conditional request and usually transfers nothing.
 
 ---
 
