@@ -61,9 +61,11 @@ The collection is a directory of YAML in the Postman Collection v3 format. Read 
 
 Write or change the implementation so the running service matches the spec. The spec leads; the code follows it.
 
+While iterating, prefer sending individual requests through the Postman CLI over reaching for curl. It resolves collection and environment variables and applies stored auth and scripts the same way the collection run will, so what you exercise while poking at the endpoint matches what the collection run checks next, and it leaves a history you can look back on. curl does not know any of that context and leaves no record.
+
 #### 2.2 Run the collection and surface the result
 
-Prove the endpoint by running the collection. Surface the collection run result to user exactly as it printed, including failures.
+Once the endpoint behaves, run the whole collection, not just the request you were iterating on. This is the check against the full contract, not a repeat of the manual poke. Surface the collection run result to user exactly as it printed, including failures.
 
 
 ---
