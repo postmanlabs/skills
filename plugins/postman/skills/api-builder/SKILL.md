@@ -24,7 +24,7 @@ Working on an API always involves a three phase process, in order. Idea is code 
 2. **Make code satisfy the contract.** Implement the contract and ensure all api tests are passing by running the collection.
 3. **Publish.** Ask the user before pushing artifacts to the cloud workspace.
 
-Before you begin, ensure the Postman skills are up to date, and update them if they're not. Checking is a single conditional request that usually transfers nothing, so there's little reason to skip it.
+Before you begin, ensure the Postman skills are up to date, and update them if they're not.
 
 ---
 
