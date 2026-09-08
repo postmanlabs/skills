@@ -40,7 +40,16 @@ Write OpenAPI 3 to the spec path the repo declares. Specs are written in postman
 
 Do not guess. If a method, status code, parameter, or auth scheme is not determinable from the code, record it as a gap and leave the field out. A spec that looks complete but is not poisons every assertion built on it.
 
-For a reverse-engineered spec, report how many route registrations you saw and how many operations you emitted. They should match. Say so plainly if they do not.
+**When you are documenting code that already exists, work in this order.** Going straight to a text search over the repo is how endpoints get missed and paths come out wrong.
+
+1. **Read the dependency manifest first, and say what you found.** `package.json`, `requirements.txt`, `pyproject.toml`, `go.mod`, `pom.xml`, `build.gradle`, `Gemfile`, `composer.json`, `*.csproj`. Name the framework and its version. If the repo holds several manifests, say which service you are documenting rather than silently picking one.
+2. **State the registration idiom before you search for it.** Decide, from the framework you just named, what a route registration looks like in this codebase. If the framework is unfamiliar, read its routing API - its README or its route-registration surface, not the whole library.
+3. **Start at the entry point and follow the mounts.** The URL prefix is usually not beside the route. Begin where the app or server is constructed and follow every mount - `use`, `include`, `register`, `Group`, a class-level path annotation - to the file it points at. Never document a path without tracing where it is mounted: a route file read on its own gives you `/:id` when the real path is `/items/:id`.
+4. **Enumerate, then reconcile.** State how many route registrations you found and how many operations you are emitting, and account for any difference. They are not the same unit: a mount is one registration and no operations, and a resource macro is one registration and several.
+5. **Read the guards, do not assume them.** Auth is where a reverse-engineered spec is most often confidently wrong. Read what the guard actually returns and which header it actually checks; a decorator that aborts 403 on a missing `x-owner` is not 401 on a missing `x-api-key`.
+6. **Say what you could not reach.** Routes registered in a loop, built from a variable, or added by a plugin. A stated gap is recoverable; a silent one is not.
+
+Tag the spec with its provenance under `info`. A spec written from the code is `x-postman-provenance: implementation`: it describes the code, so assertions built on it catch regressions but cannot find a bug that is already there. A spec written from intent, before the code exists, is `intent` - the more valuable of the two, because it can fail for a real reason.
 
 #### 1.3 Lint the spec
 
