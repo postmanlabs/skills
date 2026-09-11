@@ -1,7 +1,6 @@
 # Postman for Agents
 
-Postman's skills for coding agents, and the landing page at
-[postmanlabs.com/skills](https://www.postmanlabs.com/skills/).
+Postman's skills for coding agents.
 
 The skill files in this repository are the single source of truth. They reach a
 developer two ways, and both read the same bytes:
@@ -26,7 +25,6 @@ plugins/postman/                  the plugin
     reference/collection_schema_v3.md
 manifest.json                     generated index the CLI fetches
 scripts/build-manifest.js         regenerates it
-index.html styles.css script.js   the landing page
 ```
 
 ## Installing
