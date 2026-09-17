@@ -20,7 +20,7 @@ the root `AGENTS.md`.
 .claude-plugin/marketplace.json   the marketplace Claude Code adds
 plugins/postman/                  the plugin
   .claude-plugin/plugin.json
-  skills/<name>/                  one skill per directory (bootstrap, ci, mocking, monitoring, api-documentation, postman-mcp-fallback, ...)
+  skills/<name>/                  one skill per directory (bootstrap, api-discovery, api-testing, api-mocking, api-monitoring, performance-testing, spec-authoring, collection-schema-v3, postman-mcp-fallback, ...)
     SKILL.md
 manifest.json                     generated index the CLI fetches
 scripts/build-manifest.js         regenerates it
