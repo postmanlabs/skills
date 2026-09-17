@@ -1,20 +1,20 @@
 ---
 name: postman-mcp-fallback
-description: Falls back to Postman's own MCP server when the CLI cannot be used, and is the reference for using that surface once connected. Use when the user explicitly asks to connect an agent to Postman's MCP tools, to pick a toolset, or to judge an MCP result such as a `getCollection` response or a `createMock` default. For agent-initiated routing it is gated — only after bootstrap has exhausted its CLI resolution ladder, and a `postman` binary missing from PATH is never a qualifying reason, because bootstrap installs the CLI itself. Covers Postman's API as MCP tools, not the repo-local CLI workflow the other skills drive.
+description: Falls back to Postman's own MCP server when the CLI cannot be used, and is the reference for using that surface once connected. Use when the user explicitly asks to connect an agent to Postman's MCP tools, to pick a toolset, or to judge an MCP result such as a `getCollection` response or a `createMock` default. For agent-initiated routing it is gated to two cases — bootstrap attempted a CLI install and that install actually failed, or the CLI simply has no verb for the task at all (confirmed via `-h`, e.g. creating a Monitor) — and a `postman` binary missing from PATH is never on its own a qualifying reason, because bootstrap installs the CLI itself. Covers Postman's API as MCP tools, not the repo-local CLI workflow the other skills drive.
 ---
 
 # Fall Back to Postman's MCP Server
 
 ## Overview
 
-Postman ships its own MCP server — `@postman/postman-mcp-server`, Apache-2.0,
-maintained by Postman — that exposes the Postman API itself as MCP tools:
+Postman ships its own MCP server — `@postman/postman-mcp-server` — that
+exposes the Postman API itself as MCP tools:
 create, read, update, and delete workspaces, collections, environments,
 specs, mocks, and monitors; run a collection; generate client code; search
 the org's API catalog. This is a different integration point from the rest
-of this plugin. `bootstrap`, `mocking`, `ci`, `monitoring`, and
-`api-documentation` all wrap the Postman CLI inside a repo's local
-workflow. This skill governs calling Postman's tools directly once its MCP
+of this plugin. `bootstrap`, `api-mocking`, `api-testing`, `api-monitoring`,
+`spec-authoring`, `performance-testing` and `api-discovery` all wrap the
+Postman CLI inside a repo's local workflow. This skill governs calling Postman's tools directly once its MCP
 server is connected — a different surface, with its own toolset choice, its
 own auth model, and defaults that don't match the CLI's.
 
@@ -22,13 +22,13 @@ own auth model, and defaults that don't match the CLI's.
 
 | Toolset | Size | Contents | Use when |
 | --- | --- | --- | --- |
-| `minimal` (default) | ~40 tools | Core create/read/update on one collection, workspace, environment, spec, or mock at a time; `runCollection`; `duplicateCollection`; `searchPostmanElements` | Modifying a single element, the common case |
-| `code` | ~23 tools | Read-only context and code-gen tools (`getCodeGenerationInstructions`, `get*Context` family) | Generating client code or feeding API context to the agent, not editing Postman |
-| `full` | 100+ tools | Everything in `minimal` plus comments, folder/request/response transfer, forks, pull requests, monitors, packages, SDKs, workspace roles, private network management, analytics | The task genuinely needs monitors, SDKs, governance/comments, or Enterprise collaboration |
-| `learn` | 1 tool | `searchLearningCenter` only | Looking up Postman's own docs, nothing else |
+| `minimal` (default) | medium | Core create/read/update on one collection, workspace, environment, spec, or mock at a time; `runCollection`; `duplicateCollection`; `searchPostmanElements` | Modifying a single element, the common case |
+| `code` | small, read-only | Context and code-gen tools (`getCodeGenerationInstructions`, `get*Context` family) | Generating client code or feeding API context to the agent, not editing Postman |
+| `full` | largest | Everything in `minimal` plus comments, folder/request/response transfer, forks, pull requests, monitors, packages, SDKs, workspace roles, private network management, analytics | The task genuinely needs monitors, SDKs, governance/comments, or Enterprise collaboration |
+| `learn` | smallest — one tool | `searchLearningCenter` only | Looking up Postman's own docs, nothing else |
 
-Every extra tool in a toolset costs context on every turn whether it's used
-or not — default to `minimal` and only step up when the task needs it.
+Every extra tool in a toolset costs context on every turn, whether it's
+used or not.
 
 Transport is chosen the same way, at connection time, not per call:
 
@@ -44,12 +44,22 @@ Transport is chosen the same way, at connection time, not per call:
 
 ## Critical Rules
 
-1. **This surface is the fallback, not a peer. Confirm bootstrap exhausted the
-   CLI ladder before using it.** A missing `postman` on `PATH` is not a
-   qualifying reason — bootstrap installs the CLI into the plugin's own data
-   directory. Routing here to avoid an install defeats the point of the plugin.
-   Qualifying reasons are: no shell, no Node, or a hosted session where the
-   install genuinely cannot happen. Say which one applies.
+1. **This surface is the fallback, not a peer. Reach for it only when the
+   CLI genuinely can't do the job, not because installing it was
+   inconvenient.** A missing `postman` on `PATH` is not a qualifying
+   reason — bootstrap installs the CLI with `npm install -g postman-cli`,
+   or a platform installer, and routing here to avoid that install defeats
+   the point of the plugin. Two kinds of reason qualify: bootstrap attempted
+   an install and it actually failed (no shell, no Node, no write access, or
+   a hosted session where the install can't happen), or the CLI simply has
+   no verb for the task — confirmed by reading `-h`, not assumed (creating
+   or scheduling a Monitor is like this: no CLI verb exists for it, but this
+   server's `full` toolset does). First confirm this surface actually covers
+   the gap, from this file's own Overview and toolset table — it doesn't
+   cover everything the CLI can't do. Publishing docs externally, for one,
+   has no tool here either: that gap routes to a human publishing from the
+   Postman app, not to MCP. Once confirmed, say which of the two reasons
+   above applies.
 2. **Default to `minimal`; only step up when the task needs it.** See the
    table above — don't reach for `full` "to be safe."
 3. **Fetch the `postman://instructions` resource before answering anything
@@ -71,7 +81,7 @@ Transport is chosen the same way, at connection time, not per call:
    otherwise.** `createMock`'s `private` parameter defaults to `false` —
    "public and can receive requests from anyone and anywhere." There is no
    local-mock option on this surface at all — that's the CLI, via the
-   `mocking` skill. Get explicit consent, or pass `private: true`, before
+   `api-mocking` skill. Get explicit consent, or pass `private: true`, before
    calling `createMock` or `publishMock`.
 7. **`getCollection` returns a lightweight map, not the full collection,
    unless asked.** The default response is metadata plus recursive item
@@ -81,27 +91,28 @@ Transport is chosen the same way, at connection time, not per call:
 
 ## Process
 
-1. Pick a toolset for the task (table above), then local vs. remote, then
-   region.
-2. Configure the connection:
-   - **Remote, recommended default:** point the MCP host at
-     `https://mcp.postman.com/minimal` (or `/code`, `/mcp` for full). In
-     Claude Code: `claude mcp add --transport http postman
-     https://mcp.postman.com/minimal`.
-   - **Local, when the task needs `localhost` access:**
-     `npx @postman/postman-mcp-server` with `POSTMAN_API_KEY` set. In Claude
-     Code: `claude mcp add postman -e POSTMAN_API_KEY=<key> -- npx
+1. Pick a toolset for the task (table above).
+2. Configure the connection — decide remote/local/region using the
+   Transport criteria above, then run the matching command:
+   - **Remote:** `claude mcp add --transport http postman
+     https://mcp.postman.com/minimal` (swap `/code`, `/mcp`, or `/learn`).
+   - **Local:** `claude mcp add postman -e POSTMAN_API_KEY=<key> -- npx
      @postman/postman-mcp-server`.
-   - **EU residency:** the `mcp.eu.postman.com` URLs, or `--region eu`
-     locally — API key only, no OAuth, either way.
-3. Once connected, call `getAuthenticatedUser` to confirm auth, then
-   `getEnabledTools` to confirm which toolset actually loaded. State both
-   back to the user rather than assuming the configuration took effect.
+   - **EU residency:** the `mcp.eu.postman.com` URL, or add `--region eu` to
+     the local command.
+3. Fetch the `postman://instructions` resource, per Critical Rule 3 — do
+   this even if the host claims to do it automatically on connect, and
+   before the two confirmation calls in step 4.
+4. Call `getAuthenticatedUser` to confirm auth, then `getEnabledTools` to
+   confirm which toolset actually loaded. State both back to the user
+   rather than assuming the configuration took effect.
 
 ## Verification
 
-- State which toolset and region are active, read from `getEnabledTools`,
-  before doing real work — not from what was requested in config.
+- State which toolset is active, read from `getEnabledTools` — not from
+  what was requested in config. State transport and region from the
+  connection command that was actually used; `getEnabledTools` doesn't
+  report either.
 - Before answering "is there an API for X" with "no," confirm
   `searchPostmanElements` actually ran first.
 - Before creating or publishing a mock, state explicitly whether it's public
