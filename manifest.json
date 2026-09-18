@@ -2,6 +2,19 @@
   "schemaVersion": 1,
   "skills": [
     {
+      "name": "ai-readiness",
+      "plugin": "postman",
+      "description": "Scores a Postman collection or an OpenAPI spec for how well an AI agent can discover, understand, call, and recover from errors with it — missing examples, undocumented errors, and ambiguous parameters all cost points. Use when the user asks \"is my API agent-ready,\" \"can AI agents use my API,\" \"how agent-friendly is my API,\" or wants to scan, score, or improve a collection or spec for AI/agent consumption. Covers `postman collection ai-readiness` and `postman spec ai-readiness`.",
+      "files": [
+        {
+          "target": "SKILL.md",
+          "source": "plugins/postman/skills/ai-readiness/SKILL.md",
+          "bytes": 2432,
+          "sha256": "b6a398918babc3dbfe35c1107c25d8de80644c599566ce2da40123c54560b1f3"
+        }
+      ]
+    },
+    {
       "name": "api-discovery",
       "plugin": "postman",
       "description": "Finds what APIs, collections, specs, or requests already exist before building something new, and answers questions about how they relate. Use when the user asks \"does an API for X already exist,\" \"what depends on this service,\" \"what does this API do,\" or before scaffolding anything that might already have a Postman equivalent. Covers `postman search`, `postman context-graph`, and `postman context instructions discovery`. Reach for `search` when you know roughly what you're looking for by name; reach for the Context Graph when the question is about relationships, not names.",
@@ -9,8 +22,8 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/api-discovery/SKILL.md",
-          "bytes": 4660,
-          "sha256": "7b04786758dcabd1a1f71b1183c8d5f29d649195b09f09eab3a60bf4414e909e"
+          "bytes": 4918,
+          "sha256": "cceca5cf3b1feab3e664ef50d3d42a0b7c5305f8e1cd744ca21b86ab27883fd9"
         },
         {
           "target": "reference/search_filters.md",
@@ -62,13 +75,13 @@
     {
       "name": "bootstrap",
       "plugin": "postman",
-      "description": "Resolves the Postman CLI, authenticates, links the workspace, and records this repo's spec path, collections directory and workspace id. Use when the user asks to \"set up Postman here\", \"connect this repo to Postman\", \"link this workspace\", \"authenticate with Postman\", \"postman login\", or \"run postman init\" — and before the api-mocking, api-testing, api-monitoring, spec-authoring, performance-testing, api-discovery, or ci-integration skills only when the CLI, the linked workspace or the spec path has not already been confirmed in this session. Those skills stop and point back here if it has not completed; they never re-derive these values themselves.",
+      "description": "Resolves the Postman CLI, authenticates, links the workspace, and records this repo's spec path, collections directory and workspace id. Use when the user asks to \"set up Postman here\", \"connect this repo to Postman\", \"link this workspace\", \"authenticate with Postman\", \"postman login\", or \"run postman init\" — and before the api-mocking, api-testing, api-monitoring, performance-testing, api-discovery, or ci-integration skills only when the CLI, the linked workspace or the spec path has not already been confirmed in this session. Those skills stop and point back here if it has not completed; they never re-derive these values themselves.",
       "files": [
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/bootstrap/SKILL.md",
-          "bytes": 6761,
-          "sha256": "70cc68352c0a43c03dc48881bd41199424e363124310084f319bcccc5b6ecf0d"
+          "bytes": 6714,
+          "sha256": "97c166077ffc1f606d817610b4bd3574bf594f2f73c37330a6e0e077c2c4dc3c"
         },
         {
           "target": "reference/cli_installation.md",
@@ -86,8 +99,8 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/ci-integration/SKILL.md",
-          "bytes": 5423,
-          "sha256": "3e651b7f8ffe538229fec7cfe62d00a4abcd71796ba235addf92ebd8992680c2"
+          "bytes": 6282,
+          "sha256": "5133310bc4a81b49192987cc6568fbfc46f7b12fe8fa50fc42a5ee26bb21d4c0"
         }
       ]
     },
@@ -120,32 +133,6 @@
           "source": "plugins/postman/skills/performance-testing/SKILL.md",
           "bytes": 4226,
           "sha256": "41da742e5cf847c86353518a666122e6bbced2d756ade1f09023004fda54215c"
-        }
-      ]
-    },
-    {
-      "name": "postman-mcp-fallback",
-      "plugin": "postman",
-      "description": "Falls back to Postman's own MCP server when the CLI cannot be used, and is the reference for using that surface once connected. Use when the user explicitly asks to connect an agent to Postman's MCP tools, to pick a toolset, or to judge an MCP result such as a `getCollection` response or a `createMock` default. For agent-initiated routing it is gated to two cases — bootstrap attempted a CLI install and that install actually failed, or the CLI simply has no verb for the task at all (confirmed via `-h`, e.g. adding a comment to a collection) — and a `postman` binary missing from PATH is never on its own a qualifying reason, because bootstrap installs the CLI itself. Covers Postman's API as MCP tools, not the repo-local CLI workflow the other skills drive.",
-      "files": [
-        {
-          "target": "SKILL.md",
-          "source": "plugins/postman/skills/postman-mcp-fallback/SKILL.md",
-          "bytes": 7881,
-          "sha256": "c078b5623786dfa5ac3b21eafc55496880cd16bf8cd77fc2924f9cded172f6eb"
-        }
-      ]
-    },
-    {
-      "name": "spec-authoring",
-      "plugin": "postman",
-      "description": "Authors and validates an OpenAPI/AsyncAPI specification tracked in Postman's Spec Hub — a plain spec file, or a git-native multi-file spec directory. Use when the user asks to \"write/update this OpenAPI spec,\" \"lint this spec,\" \"check the spec against our governance rules,\" or \"is this spec ready for an AI agent to consume.\" Covers `postman spec`. Never routes to `postman api` — see bootstrap's Rules on the deprecated API Builder. Depends on bootstrap for the spec path and workspace id (governance rulesets come from the workspace).",
-      "files": [
-        {
-          "target": "SKILL.md",
-          "source": "plugins/postman/skills/spec-authoring/SKILL.md",
-          "bytes": 3298,
-          "sha256": "2cc51bcc819e3e88b7bcaed76e6d08151d1e9954727f9c42edc4ba08bf6f2fff"
         }
       ]
     }

@@ -1,6 +1,6 @@
 ---
 name: bootstrap
-description: Resolves the Postman CLI, authenticates, links the workspace, and records this repo's spec path, collections directory and workspace id. Use when the user asks to "set up Postman here", "connect this repo to Postman", "link this workspace", "authenticate with Postman", "postman login", or "run postman init" — and before the api-mocking, api-testing, api-monitoring, spec-authoring, performance-testing, api-discovery, or ci-integration skills only when the CLI, the linked workspace or the spec path has not already been confirmed in this session. Those skills stop and point back here if it has not completed; they never re-derive these values themselves.
+description: Resolves the Postman CLI, authenticates, links the workspace, and records this repo's spec path, collections directory and workspace id. Use when the user asks to "set up Postman here", "connect this repo to Postman", "link this workspace", "authenticate with Postman", "postman login", or "run postman init" — and before the api-mocking, api-testing, api-monitoring, performance-testing, api-discovery, or ci-integration skills only when the CLI, the linked workspace or the spec path has not already been confirmed in this session. Those skills stop and point back here if it has not completed; they never re-derive these values themselves.
 ---
 
 # Bootstrap Postman for This Repo
@@ -22,8 +22,8 @@ repo is already set up.
   is deprecated in v12+ and the CLI prints no warning.
 - Local commands need no login; only commands reaching the Postman cloud do.
   Don't force a login the task doesn't need.
-- A missing `postman` binary means install it. Route to `postman-mcp-fallback`
-  only after an install has been attempted and actually failed.
+- A missing `postman` binary means install it. If every install route fails,
+  report the failure and stop — there is no fallback skill in this plugin.
 - Never fabricate a workspace id, spec path, or collections directory. Report
   the gap and stop.
 - Never echo an API key or session token into output, logs, or summaries.
@@ -89,9 +89,8 @@ npm install -g postman-cli
 curl-installed binaries don't take `npm install -g` cleanly.
 
 **If every route fails:** name what blocked you — no Node, no shell, no write
-access, or a hosted session that cannot install — then hand off to the
-`postman-mcp-fallback` skill. An attempted install that actually failed is the
-only thing that qualifies.
+access, or a hosted session that cannot install — and report it to the user.
+There is no fallback skill in this plugin to hand off to.
 
 ## 2. Authenticate, if the task needs it
 

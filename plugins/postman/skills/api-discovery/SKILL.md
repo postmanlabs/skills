@@ -7,22 +7,21 @@ description: Finds what APIs, collections, specs, or requests already exist befo
 
 ## Overview
 
-Two different questions, two different tools:
+Two unconnected datasets, so pick by data source, not question shape:
 
-- **"Does something named/shaped like X exist?"** → `search` — keyword and
-  filter lookup across concrete elements (requests, collections, specs,
-  mocks, workspaces, environments, flows, documents). It matches text; it
-  doesn't reason.
-- **"How do things relate, or what does this actually do?"** → `context-graph
-  ask` — natural-language Q&A over the organization's Context Graph, a
-  system built on the relationships between APIs (dependencies, ownership,
-  behavior), not on name matching. "What depends on billing-api" or "what
-  does postman-app do" are Context Graph questions `search` structurally
-  cannot answer — there's no keyword to search for a dependency edge.
+- **`search` / `context`** → **Postman-authored artifacts** someone saved
+  in Postman (collections, requests, specs, mocks, workspaces). Matches
+  text; doesn't reason. "Does something named/shaped like X exist?"
+- **`context-graph ask`** → a separately-populated **engineering service
+  graph** (built from repo/traffic scanning, not Postman content) —
+  natural-language Q&A over discovered services and the dependency edges
+  between them. "What depends on billing-api?" — architecture questions
+  `search` structurally can't answer, since there's no keyword for a
+  dependency edge.
 
-Don't default to one for everything. A search that comes back empty answers
-"nothing matches that name," not "nothing like this exists" — that second
-claim is a Context Graph question, or a broader-`--ownership` search.
+A miss in one says nothing about the other (see Critical Rule 1) — never
+fall back to the Context Graph just because a `search` came back empty, or
+vice versa.
 
 ## `search`
 
@@ -45,33 +44,40 @@ while, or from a script polling on its own cadence. The query runs against
 the team derived from the API key; there's no workspace/team selection.
 `--max-steps` caps how much reasoning the service does per question.
 
-The answer is generated, not retrieved verbatim — treat it as a lead to
-verify against a concrete source (`search`, `context collection get`)
-before acting on it for anything consequential, the same way any AI-
-generated claim gets checked before it drives a decision.
+The answer is generated, not retrieved verbatim — verify with a re-ask or
+narrower query before acting on it for anything consequential (Critical
+Rule 3), the same way any AI-generated claim gets checked before it drives
+a decision.
 
 ## `context instructions discovery`
 
 Postman ships its own prescribed discovery workflow for AI coding agents —
 `postman context instructions discovery` prints it. Read this before
-building a custom discovery flow out of `search`/`context-graph` primitives;
-it's Postman's own recommended sequence, not a blank slate to reinvent.
+building a custom discovery flow out of `search`/`context` primitives; it's
+Postman's own recommended sequence (search/context only, no
+`context-graph`), not a blank slate to reinvent.
 
 ## After discovery: reusing what was found
 
 `dependency add <type> <nameOrId>` formally adds a collection, environment,
 or mock found in another workspace as a dependency of the current one —
-the step after discovery finds something worth reusing (e.g., feeding
-`application test`'s contract matching), rather than copying it in by hand.
+the step after `search`/`context` finds something worth reusing (e.g.,
+feeding `application test`'s contract matching), rather than copying it in
+by hand. It takes a Postman entity ID, so it only follows a `search`/
+`context` result — a `context-graph` finding names a service, not an ID;
+go find that service's collection via `search` first.
 
 ## Critical Rules
 
-1. **An empty default-scope `search` is not proof nothing exists.** Retry
+1. **`context-graph` and `search`/`context` don't share a dataset** (see
+   Overview) — check an absence against its own source, never the other
+   tool, before reporting it to the user.
+2. **An empty default-scope `search` is not proof nothing exists.** Retry
    with `--ownership all` before reporting "no API for this" to the user.
-2. **A Context Graph answer is generated reasoning, not a database read.**
+3. **A Context Graph answer is generated reasoning, not a database read.**
    Verify it against a concrete source before treating it as fact,
    especially for anything the user will act on.
-3. **`search`, `context-graph`, and `context` are Beta or recently added
+4. **`search`, `context-graph`, and `context` are Beta or recently added
    surfaces.** Re-run `-h` before trusting a flag name here if the installed
    CLI is newer than this file assumes — these are the commands most likely
    to have changed since this was written.
