@@ -22,8 +22,8 @@ repo is already set up.
   is deprecated in v12+ and the CLI prints no warning.
 - Local commands need no login; only commands reaching the Postman cloud do.
   Don't force a login the task doesn't need.
-- A missing `postman` binary means install it. Route to `postman-mcp-server`
-  only after an install has been attempted and actually failed.
+- A missing `postman` binary means install it. If every install route fails,
+  report the failure and stop — there is no fallback skill in this plugin.
 - Never fabricate a workspace id, spec path, or collections directory. Report
   the gap and stop.
 - Never echo an API key or session token into output, logs, or summaries.
@@ -89,9 +89,8 @@ npm install -g postman-cli
 curl-installed binaries don't take `npm install -g` cleanly.
 
 **If every route fails:** name what blocked you — no Node, no shell, no write
-access, or a hosted session that cannot install — then hand off to the
-`postman-mcp-server` skill. An attempted install that actually failed is the
-only thing that qualifies.
+access, or a hosted session that cannot install — and report it to the user.
+There is no fallback skill in this plugin to hand off to.
 
 ## 2. Authenticate, if the task needs it
 

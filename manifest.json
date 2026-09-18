@@ -80,8 +80,8 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/bootstrap/SKILL.md",
-          "bytes": 6741,
-          "sha256": "f231cf1dd5bf4abd80e7f45fe00cf9a55123b0f2020990496acca7b0667f6ae5"
+          "bytes": 6714,
+          "sha256": "97c166077ffc1f606d817610b4bd3574bf594f2f73c37330a6e0e077c2c4dc3c"
         },
         {
           "target": "reference/cli_installation.md",
@@ -133,73 +133,6 @@
           "source": "plugins/postman/skills/performance-testing/SKILL.md",
           "bytes": 4226,
           "sha256": "41da742e5cf847c86353518a666122e6bbced2d756ade1f09023004fda54215c"
-        }
-      ]
-    },
-    {
-      "name": "postman-mcp-server",
-      "plugin": "postman",
-      "description": "Postman concepts and MCP tool guidance. Loaded when working with Postman MCP tools to make better decisions about tool selection and workarounds.",
-      "files": [
-        {
-          "target": "SKILL.md",
-          "source": "plugins/postman/skills/postman-mcp-server/SKILL.md",
-          "bytes": 4364,
-          "sha256": "4d6b927a342d86ded6185a5a4321ebdefdb0ac0d341cfb2d916da76f8c573793"
-        },
-        {
-          "target": "references/docs.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/docs.md",
-          "bytes": 3869,
-          "sha256": "c5045ab0e87beec17bfb4b63c1610f1c9554adcebd1c39bdf971591738a6e24f"
-        },
-        {
-          "target": "references/learn.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/learn.md",
-          "bytes": 3804,
-          "sha256": "28ef641ec90799cbc1eb84135e187848375c0654053f4956821062af59226e83"
-        },
-        {
-          "target": "references/mcp-limitations.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/mcp-limitations.md",
-          "bytes": 1704,
-          "sha256": "38f7558fde730622557c18336076ffa3d9f58d127b2b726e5ae661c14c85a798"
-        },
-        {
-          "target": "references/mock.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/mock.md",
-          "bytes": 4205,
-          "sha256": "2b89abd85d5d1fc2af68a549e39c22ed43efccd133dc05878db7d557892d17ba"
-        },
-        {
-          "target": "references/search.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/search.md",
-          "bytes": 3955,
-          "sha256": "c1c6bbfd15fa74750b04d0d274767f74ec69ccbd96a8dfe2c4643b6b32cbfc7f"
-        },
-        {
-          "target": "references/security.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/security.md",
-          "bytes": 4979,
-          "sha256": "e0dd5439278cd67c1444f28b052b4a2854db36db3b476630a33e7cd53059be27"
-        },
-        {
-          "target": "references/setup.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/setup.md",
-          "bytes": 5579,
-          "sha256": "565cb4cf09a0a5919acd368e2429b7744b5b8cbd23bfcd40e536c1707b620d11"
-        },
-        {
-          "target": "references/sync.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/sync.md",
-          "bytes": 4545,
-          "sha256": "05d1cb8acaf72203aeca4f280b56d68a4a94d251cc056281fa85634feeac3301"
-        },
-        {
-          "target": "references/test.md",
-          "source": "plugins/postman/skills/postman-mcp-server/references/test.md",
-          "bytes": 3332,
-          "sha256": "ed840f6ea3039cafe0e3f6ac3f26e8b9a91271ec37dba20260cd2feb5e71eb3e"
         }
       ]
     }
