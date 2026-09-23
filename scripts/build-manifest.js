@@ -99,6 +99,12 @@ function build () {
         }
 
         for (const skill of fs.readdirSync(skillsDir).sort()) {
+            // Dot-prefixed directories are local tooling state, not published
+            // skills (for example, `.quarantine`).
+            if (skill.startsWith('.')) {
+                continue;
+            }
+
             const dir = path.join(skillsDir, skill),
                 entry = path.join(dir, 'SKILL.md');
 

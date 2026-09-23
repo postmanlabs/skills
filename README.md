@@ -2,24 +2,15 @@
 
 Postman's skills for coding agents.
 
-The skill files in this repository are the single source of truth. They reach a
-developer two ways, and both read the same bytes:
-
-| Route | How it gets the files | Lands at |
-| --- | --- | --- |
-| Claude Code plugin | `/plugin marketplace add postmanlabs/skills` clones this repo | Claude's plugin dir |
-| Postman CLI | `postman init` fetches `manifest.json` over HTTPS | `postman/skills/` in the repo |
-
-Codex and other agents that read `AGENTS.md` are served by the CLI route:
-`postman init` writes the skills into the repository and adds a pointer line to
-the root `AGENTS.md`.
+The skill files in this repository are the single source of truth. `postman
+init` fetches `manifest.json` over HTTPS, installs the listed files under
+`postman/skills/`, and adds a pointer line to the root `AGENTS.md` for agents
+that read it.
 
 ## Layout
 
 ```
-.claude-plugin/marketplace.json   the marketplace Claude Code adds
-plugins/postman/                  the plugin
-  .claude-plugin/plugin.json
+plugins/postman/                  Postman's published skill source
   skills/<name>/                  one skill per directory (bootstrap, api-discovery, api-testing, api-mocking, api-monitoring, ci-integration, performance-testing, ai-readiness, collection-schema-v3, ...)
     SKILL.md
 manifest.json                     generated index the CLI fetches
@@ -27,13 +18,6 @@ scripts/build-manifest.js         regenerates it
 ```
 
 ## Installing
-
-**As a Claude Code plugin:**
-
-```
-/plugin marketplace add postmanlabs/skills
-/plugin install postman@postman
-```
 
 **Into a repository, via the CLI:**
 
@@ -60,8 +44,8 @@ a CLI release.
 ## Adding a skill
 
 Create `plugins/postman/skills/<name>/SKILL.md` with `name` and `description`
-frontmatter, where `name` matches the directory. Run the manifest script. Both
-routes pick it up with no code change on either side.
+frontmatter, where `name` matches the directory. Run the manifest script. The
+CLI picks it up with no code change.
 
 ## The bindings placeholder
 
