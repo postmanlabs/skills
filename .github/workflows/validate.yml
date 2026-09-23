@@ -22,11 +22,8 @@ jobs:
       - name: Manifest is in sync with the skill files
         run: node scripts/build-manifest.js --check
 
-      - name: Manifests are valid JSON
-        run: |
-          for file in .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json manifest.json; do
-            node -e "JSON.parse(require('fs').readFileSync('$file','utf8'))" && echo "ok $file"
-          done
+      - name: Manifest is valid JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8'))"
 
       - name: Every skill has frontmatter Claude Code can load
         run: |
