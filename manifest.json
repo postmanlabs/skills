@@ -17,19 +17,19 @@
     {
       "name": "api-discovery",
       "plugin": "postman",
-      "description": "Finds what APIs, collections, specs, or requests already exist before building something new, and answers questions about how they relate. Use when the user asks \"does an API for X already exist,\" \"what depends on this service,\" \"what does this API do,\" or before scaffolding anything that might already have a Postman equivalent. Covers `postman search`, `postman context-graph`, and `postman context instructions discovery`. Reach for `search` when you know roughly what you're looking for by name; reach for the Context Graph when the question is about relationships, not names.",
+      "description": "Discover and use APIs from the web or Postman. Find and integrate public third-party APIs with Orbit, locate Postman entities with search, and use the Context Graph to investigate dependencies, ownership, runtime behavior, and change impact across an API ecosystem.",
       "files": [
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/api-discovery/SKILL.md",
-          "bytes": 4918,
-          "sha256": "cceca5cf3b1feab3e664ef50d3d42a0b7c5305f8e1cd744ca21b86ab27883fd9"
+          "bytes": 6709,
+          "sha256": "f4a6b5243a044538bfa969a190d566f0de5ba943deef4f4c0d20f09cb00ef7fd"
         },
         {
-          "target": "reference/search_filters.md",
-          "source": "plugins/postman/skills/api-discovery/reference/search_filters.md",
-          "bytes": 3217,
-          "sha256": "e7a1e69fa1d9b34e9518ddd093278d9f9f87fc28e4f81f50f64dad90766afbac"
+          "target": "reference/orbit.md",
+          "source": "plugins/postman/skills/api-discovery/reference/orbit.md",
+          "bytes": 3456,
+          "sha256": "ebb7cf021880a28c771f7579e808c9d63951f3cfc83bf12eda31b948b401bf8d"
         }
       ]
     },
@@ -41,14 +41,14 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/api-documentation/SKILL.md",
-          "bytes": 2140,
-          "sha256": "9ea3e4a1f3e5982c9d5b7f8606e1c500f485ae8df3a852afa42b7de928e07989"
+          "bytes": 2141,
+          "sha256": "79b802121a9b5760bbaa77c391400efcafc5f3365b8f9386b0f8a37c8992be33"
         },
         {
           "target": "reference/rest-api-best-practices.md",
           "source": "plugins/postman/skills/api-documentation/reference/rest-api-best-practices.md",
-          "bytes": 2994,
-          "sha256": "aeda45cadccc5f95b24c1bc6e17e57a2eccea20c09ab3cfba4eb5acdc95478b3"
+          "bytes": 2995,
+          "sha256": "af4f5bb2ec4f7ece778c3f9bf47743b3a3c7959ae19152b6f04b91587122a3c5"
         }
       ]
     },
@@ -60,8 +60,8 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/api-engineer/SKILL.md",
-          "bytes": 1678,
-          "sha256": "938186b83138a8451a203eebd994884a2bf8aa4272108bcbd0601e5177f9d966"
+          "bytes": 2402,
+          "sha256": "c46e31bc7f966b9b02f4eef8ef8f4ad1c6224003b1f71f00b7e6397e826d009f"
         }
       ]
     },
@@ -73,8 +73,8 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/api-mocking/SKILL.md",
-          "bytes": 7401,
-          "sha256": "b0d190feead0f1aa93e89301613ceaea3d3948b8211cc73398a06f653128fd67"
+          "bytes": 8955,
+          "sha256": "6ce9c0cd72953bc947f183ec682793c47a0a8bf59331261f595870bbc53946fe"
         }
       ]
     },
@@ -86,8 +86,8 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/api-monitoring/SKILL.md",
-          "bytes": 7805,
-          "sha256": "c1f4b6f1194fbedfeb0a8d8d443ccc5b80e8cd4f641b95f5d3867af6bc7c3033"
+          "bytes": 7790,
+          "sha256": "e26e7d2a44cd844acda124a38188f5364da0aba15ad3efc70a6462d8d5e684ae"
         }
       ]
     },
@@ -99,21 +99,21 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/api-testing/SKILL.md",
-          "bytes": 4545,
-          "sha256": "7419daa5c0f8fea327c11f4ba790f4d3bb77bc80311f33283a7407b9c2311e36"
+          "bytes": 5598,
+          "sha256": "1fe04e33dc59b1a6f61fd1a937aacafe178b91e6922c06101a608c03a16c2402"
         }
       ]
     },
     {
       "name": "bootstrap",
       "plugin": "postman",
-      "description": "Resolves the Postman CLI, authenticates, links the workspace, and records this repo's spec path, collections directory and workspace id. Use when the user asks to \"set up Postman here\", \"connect this repo to Postman\", \"link this workspace\", \"authenticate with Postman\", \"postman login\", or \"run postman init\" — and before the api-mocking, api-testing, api-monitoring, flows, performance-testing, api-discovery, or ci-integration skills only when the CLI, the linked workspace or the spec path has not already been confirmed in this session. Those skills stop and point back here if it has not completed; they never re-derive these values themselves.",
+      "description": "Resolves the Postman CLI, authenticates when the task needs it, and manages the filesystem/workspace binding for a repository. Use when the user asks to set up Postman, enable filesystem workflows, authenticate, initialize, import, connect, pull, push, sync, or share a workspace — and before skills that need a linked workspace, only when the CLI, linked workspace, or spec path has not already been confirmed.",
       "files": [
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/bootstrap/SKILL.md",
-          "bytes": 6748,
-          "sha256": "1f42b1463ca5fc1699b3716f62d24ff0df495a4e601a60c792588bebf7d4c637"
+          "bytes": 9681,
+          "sha256": "f09e17d45bdca9fec95b9ca5d7ec65a08f0273a25ecfb9af176139a7428a9b1e"
         },
         {
           "target": "reference/cli_installation.md",
@@ -144,8 +144,14 @@
         {
           "target": "SKILL.md",
           "source": "plugins/postman/skills/collection-schema-v3/SKILL.md",
-          "bytes": 8094,
-          "sha256": "5e0f4b4b8a789f187aa3ee1cf1e284b32dfabeedd09b8677b486170e359b7006"
+          "bytes": 8304,
+          "sha256": "11ce8aab1a3b2f4f30cc842c7868cd741f2d7cbcb3967d1fd6440e29268c8eb0"
+        },
+        {
+          "target": "reference/environment.md",
+          "source": "plugins/postman/skills/collection-schema-v3/reference/environment.md",
+          "bytes": 2109,
+          "sha256": "9b9fc2fe582596a9d2873476be63190a89042de2da30609cabb2c8ad0473f693"
         },
         {
           "target": "reference/other_protocols.md",
@@ -207,8 +213,8 @@
         {
           "target": "references/learn.md",
           "source": "plugins/postman/skills/postman-mcp-server/references/learn.md",
-          "bytes": 3804,
-          "sha256": "28ef641ec90799cbc1eb84135e187848375c0654053f4956821062af59226e83"
+          "bytes": 4750,
+          "sha256": "9c7d71939691f14ae27a035c9b1a062d97738dffef4a30d10ac102e51d35b95b"
         },
         {
           "target": "references/mcp-limitations.md",
