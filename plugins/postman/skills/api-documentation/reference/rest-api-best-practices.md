@@ -1,4 +1,4 @@
-# REST API Design Practices
+# REST API Design Practices 
 
 - **Resource naming.** Nouns, not verbs, in the path (`POST /orders`, not
   `POST /createOrder`). Plural collections, consistent casing, nesting

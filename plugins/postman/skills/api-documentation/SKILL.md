@@ -1,6 +1,6 @@
 ---
 name: api-documentation
-description: Generate filesystem-first agent friendly api documentation that you can share with your teammates without hassle. Use when the user asks to "publish API docs," "generate documentation for this API," "put this on the API Network," "share a docs link for this collection or spec," or "why do my docs look empty."
+description: Generate filesystem-first agent friendly api documentation that you can share with your teammates without hassle. Use when the user asks to "publish API docs," "generate documentation for this API," "put this on the API Network," "share a docs link for this collection or spec," or "why do my docs look empty." 
 ---
 The bootstrap skill is a precursor to this one — it scaffolds the project with the directories documentation is stored in.
 
